@@ -36,9 +36,10 @@ async def get_prediction(request: Request):
     model_loaded = pickle.load(open(file_name, "rb"))
     
     message = await request.json()
-    prediction = model_loaded.predict(message["text"])[0]
+    print(message)
+    prediction = model_loaded.predict([message["text"]])[0]
     if prediction==0:
         result = 'Non malicious'
     else:
         result = 'Malicious'
-    return result #await request.json()
+    return {"result":result} 
